@@ -7,7 +7,7 @@ import {
   NavbarToggler,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import "../NavMenu.css";
+import "../../NavMenu.css";
 
 export class NavMenu extends Component<any, any> {
   static displayName = NavMenu.name;
