@@ -1,3 +1,4 @@
+using BournemouthBindicator.ServiceAgents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,8 @@ namespace BournemouthBindicator
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSingleton<IBinLookupServiceAgent, BinLookupServiceAgent>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +47,7 @@ namespace BournemouthBindicator
                 app.UseHsts();
             }
 
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
