@@ -10,12 +10,12 @@ namespace BournemouthBindicator.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BinController : ControllerBase
+    public class BindicatorController : ControllerBase
     {
 
-        private readonly ILogger<BinController> _logger;
+        private readonly ILogger<BindicatorController> _logger;
 
-        public BinController(ILogger<BinController> logger)
+        public BindicatorController(ILogger<BindicatorController> logger)
         {
             _logger = logger;
         }
