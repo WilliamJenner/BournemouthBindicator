@@ -4,7 +4,12 @@ a {
 }
 
 code {
-  color: #e01a76;
+  color: #53327d;
+}
+
+body {
+  background-color: #111111;
+  color: #ffffff;
 }
 
 .btn-primary {
@@ -17,6 +22,7 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 1em;
 }
 
 .bin-notification__text {
@@ -24,7 +30,18 @@ code {
 }
 
 .bin-notification__text .call-to-action {
-  color: #cb4b16;
+  color: #53327d;
+}
+
+/* react json view overrides */
+
+.react-json-view {
+  color: #a5a5a5 !important;
+}
+
+.string-value {
+  color: #53327d !important;
+  font-weight: bold;
 }
 
 .bin-icon {
@@ -34,4 +51,5 @@ code {
   margin: 1em;
   width: 5em;
   height: 5em;
+  color: #999999;
 }

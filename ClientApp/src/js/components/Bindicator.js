@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import ReactJson from "react-json-view";
 import moment from "moment";
 import { GetBins } from "../actions/bins";
-import { Alert } from "reactstrap";
 import { BinIcon } from "./BinIcon";
 import { CapitaliseFirst } from "../utils/string";
+import { useInterval } from "../hooks/useInterval";
+import { hoursToMilliseconds } from "../utils/number";
 var BinNotification = function (props) {
     var _a = props.namedBin, bin = _a.bin, name = _a.name;
-    return (React.createElement(Alert, { color: "secondary", className: "bin-notification" },
+    return (React.createElement("div", { className: "bin-notification" },
         React.createElement(BinIcon, { binKey: name }),
         React.createElement("div", { className: "bin-notification__text" },
             React.createElement("h1", null,
@@ -19,11 +20,18 @@ var BinNotification = function (props) {
 };
 export var Bindicator = function (props) {
     var _a = React.useState(), binLookup = _a[0], setBinLookup = _a[1];
+    // Lookup bins on startup
     useEffect(function () {
         GetBins().then(function (result) {
             setBinLookup(result);
         });
     }, []);
+    // Then poll every X time
+    useInterval(function () {
+        GetBins().then(function (result) {
+            setBinLookup(result);
+        });
+    }, hoursToMilliseconds(1));
     if (binLookup === undefined) {
         return null;
     }
@@ -51,5 +59,5 @@ export var Bindicator = function (props) {
         orderedBins.map(function (b, index) {
             return React.createElement(BinNotification, { key: index, namedBin: b });
         }),
-        React.createElement(ReactJson, { src: binLookup })));
+        React.createElement(ReactJson, { src: binLookup, name: "spoopy-doopy-json", theme: "colors" })));
 };

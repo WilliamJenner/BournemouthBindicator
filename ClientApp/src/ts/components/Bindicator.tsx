@@ -6,6 +6,8 @@ import { Alert } from "reactstrap";
 import { BinLookup, NamedBin } from "../types/BinTypes";
 import { BinIcon } from "./BinIcon";
 import { CapitaliseFirst } from "../utils/string";
+import { useInterval } from "../hooks/useInterval";
+import { hoursToMilliseconds } from "../utils/number";
 
 interface IBindicatorProps {}
 
@@ -17,7 +19,7 @@ const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
   const { bin, name } = props.namedBin;
 
   return (
-    <Alert color="secondary" className={"bin-notification"}>
+    <div className={"bin-notification"}>
       <BinIcon binKey={name as keyof BinLookup} />
       <div className={"bin-notification__text"}>
         <h1>
@@ -29,7 +31,7 @@ const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
           .
         </h1>
       </div>
-    </Alert>
+    </div>
   );
 };
 
@@ -38,11 +40,19 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
 ) => {
   const [binLookup, setBinLookup] = React.useState<BinLookup>();
 
+  // Lookup bins on startup
   useEffect(() => {
     GetBins().then((result) => {
       setBinLookup(result);
     });
   }, []);
+
+  // Then poll every X time
+  useInterval(() => {
+    GetBins().then((result) => {
+      setBinLookup(result);
+    });
+  }, hoursToMilliseconds(1));
 
   if (binLookup === undefined) {
     return null;
@@ -71,7 +81,7 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
       {orderedBins.map((b, index) => {
         return <BinNotification key={index} namedBin={b} />;
       })}
-      <ReactJson src={binLookup} />
+      <ReactJson src={binLookup} name={"spoopy-doopy-json"} theme={"colors"} />
     </React.Fragment>
   );
 };

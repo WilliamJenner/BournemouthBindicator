@@ -13,7 +13,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
-import { NavMenu } from './NavMenu';
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
     function Layout() {
@@ -21,7 +20,6 @@ var Layout = /** @class */ (function (_super) {
     }
     Layout.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(NavMenu, null),
             React.createElement(Container, null, this.props.children)));
     };
     Layout.displayName = Layout.name;
