@@ -2,17 +2,8 @@ import React, { Component, useEffect } from "react";
 import ReactJson from "react-json-view";
 import moment from "moment";
 import { GetBins } from "../actions/bins";
-import {
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  Button,
-  Alert,
-} from "reactstrap";
-import { BinLookup, Bin, NamedBin } from "../types/BinTypes";
+import { Alert } from "reactstrap";
+import { BinLookup, NamedBin } from "../types/BinTypes";
 import { BinIcon } from "./BinIcon";
 import { CapitaliseFirst } from "../utils/string";
 
@@ -47,14 +38,6 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
 ) => {
   const [binLookup, setBinLookup] = React.useState<BinLookup>();
 
-  // useEffect(() => {
-  //   const lookup = async () => {
-  //     const result = await GetBins();
-  //     setBinLookup(result);
-  //   };
-  //   lookup();
-  // }, []);
-
   useEffect(() => {
     GetBins().then((result) => {
       setBinLookup(result);
@@ -88,7 +71,7 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
       {orderedBins.map((b, index) => {
         return <BinNotification key={index} namedBin={b} />;
       })}
-      <ReactJson src={orderedBins} />
+      <ReactJson src={binLookup} />
     </React.Fragment>
   );
 };

@@ -1,3 +1,4 @@
+using BournemouthBindicator.Models;
 using BournemouthBindicator.ServiceAgents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +22,6 @@ namespace BournemouthBindicator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -31,6 +31,8 @@ namespace BournemouthBindicator
             });
 
             services.AddSingleton<IBinLookupServiceAgent, BinLookupServiceAgent>();
+            services.Configure<Lookup>(option => Configuration.GetSection("Lookup").Bind(option));
+            services.Configure<AppSettings>(option => Configuration.GetSection("AppSettings").Bind(option));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
