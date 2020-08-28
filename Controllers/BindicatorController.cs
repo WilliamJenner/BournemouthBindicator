@@ -33,7 +33,7 @@ namespace BournemouthBindicator.Controllers
         {
             var result = _binLookupServiceAgent.Lookup(Configuration["lookup:uprn"]);
 
-            return Ok(await result);
+            return Ok(new BinLookup(await result));
         }
     }
 }

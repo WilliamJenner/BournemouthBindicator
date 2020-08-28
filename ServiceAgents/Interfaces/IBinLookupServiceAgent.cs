@@ -9,6 +9,6 @@ namespace BournemouthBindicator.ServiceAgents
 {
     public interface IBinLookupServiceAgent
     {
-        Task<BinLookup> Lookup(string uprn);
+        Task<BinLookupDto> Lookup(string uprn);
     }
 }

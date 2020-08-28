@@ -1,4 +1,5 @@
 ﻿using BournemouthBindicator.Models;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -10,21 +11,20 @@ namespace BournemouthBindicator.ServiceAgents
     public class BinLookupServiceAgent : IBinLookupServiceAgent
     {
         private readonly IRestClient _lookupClient;
-        
-        public BinLookupServiceAgent()
+
+        public BinLookupServiceAgent(IConfiguration configuration)
         {
-           //TODO : Move all of this to consts or config
-            _lookupClient = new RestClient("https://online.bcpcouncil.gov.uk/"); 
+            _lookupClient = new RestClient($"https://{configuration["BCPCouncilUrl"]}"); 
         }
 
-        public Task<BinLookup> Lookup(string uprn)
+        public Task<BinLookupDto> Lookup(string uprn)
         {
             var request = new RestRequest(Method.GET);
             request.Resource = "customer/llpg/bindaylookup";
             request.AddParameter("uprn", uprn);
 
 
-            return _lookupClient.GetAsync<BinLookup>(request);
+            return _lookupClient.GetAsync<BinLookupDto>(request);
         }
     }
 }
