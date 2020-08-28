@@ -6,7 +6,7 @@ export interface Bin {
 }
 
 export interface BinLookup {
-  Rubbish: Bin;
-  Recycling: Bin;
-  FoodWaste: Bin;
+  rubbish: Bin;
+  recycling: Bin;
+  foodWaste: Bin;
 }

@@ -10,27 +10,27 @@ import {
   CardSubtitle,
   CardText,
   Button,
+  Alert,
 } from "reactstrap";
-import { BinLookup } from "../types/BinTypes";
+import { BinLookup, Bin } from "../types/BinTypes";
 
 interface IBindicatorProps {}
 
-const BinCard = (): JSX.Element => {
+const BinNotification: React.SFC<{
+  bin: Bin | undefined;
+  binName: string;
+}> = ({ bin, binName }) => {
+  console.log({ bin });
+
+  if (bin === undefined) {
+    return null;
+  }
+
   return (
-    <Card>
-      <CardImg>
-        <Icon.Trash></Icon.Trash>
-      </CardImg>
-      <CardBody>
-        <CardTitle>Card title</CardTitle>
-        <CardSubtitle>Card subtitle</CardSubtitle>
-        <CardText>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </CardText>
-        <Button>Button</Button>
-      </CardBody>
-    </Card>
+    <Alert color="info">
+      <Icon.Trash />
+      {binName} is next due on {bin.Next.toString()}
+    </Alert>
   );
 };
 
@@ -40,18 +40,21 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
   const [binLookup, setBinLookup] = React.useState<BinLookup>();
 
   useEffect(() => {
-    async function lookup() {
+    const lookup = async () => {
       const result = await GetBins();
       console.log({ result });
       setBinLookup(result);
-    }
+    };
     lookup();
   }, []);
 
+  console.log({ binLookup });
+
   return (
     <div>
-      <BinCard />
-      <ReactJson src={{ binLookup }} />
+      <BinNotification bin={binLookup?.recycling} binName={"Recycling"} />
+      <BinNotification bin={binLookup?.rubbish} binName={"Rubbish"} />
+      <BinNotification bin={binLookup?.foodWaste} binName={"Food Waste"} />
     </div>
   );
 };
