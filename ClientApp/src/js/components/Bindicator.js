@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ReactJson from "react-json-view";
 import moment from "moment";
 import { GetBins } from "../actions/bins";
-import { Alert, } from "reactstrap";
+import { Alert } from "reactstrap";
 import { BinIcon } from "./BinIcon";
 import { CapitaliseFirst } from "../utils/string";
 var BinNotification = function (props) {
@@ -19,13 +19,6 @@ var BinNotification = function (props) {
 };
 export var Bindicator = function (props) {
     var _a = React.useState(), binLookup = _a[0], setBinLookup = _a[1];
-    // useEffect(() => {
-    //   const lookup = async () => {
-    //     const result = await GetBins();
-    //     setBinLookup(result);
-    //   };
-    //   lookup();
-    // }, []);
     useEffect(function () {
         GetBins().then(function (result) {
             setBinLookup(result);
@@ -58,5 +51,5 @@ export var Bindicator = function (props) {
         orderedBins.map(function (b, index) {
             return React.createElement(BinNotification, { key: index, namedBin: b });
         }),
-        React.createElement(ReactJson, { src: orderedBins })));
+        React.createElement(ReactJson, { src: binLookup })));
 };
