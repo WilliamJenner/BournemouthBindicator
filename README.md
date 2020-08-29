@@ -11,10 +11,11 @@ This web app contains a
 ```javascript
 <Bindicator />
 ``` 
-
 component which displays an ordered list of which bins are due next, from Recyling, Food Waste and Rubbish. This component fetchs a bin lookup from the bindicator controller in this webapp, which calls BCP councils API using RestSharp.
 
 The component has an interval which will call the api again after an hour delay.
+
+This app also displays the returned data as JSON underneat, using [react-json-view](https://www.npmjs.com/package/react-json-view)
 
 # Development
 
