@@ -2,7 +2,6 @@ import React, { Component, useEffect } from "react";
 import ReactJson from "react-json-view";
 import moment from "moment";
 import { GetBins } from "../actions/bins";
-import { Alert } from "reactstrap";
 import { BinLookup, NamedBin } from "../types/BinTypes";
 import { BinIcon } from "./BinIcon";
 import { CapitaliseFirst } from "../utils/string";
@@ -13,19 +12,21 @@ interface IBindicatorProps {}
 
 interface IBinNotificationProps {
   namedBin: NamedBin;
+  callToAction: boolean;
 }
 
 const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
   const { bin, name } = props.namedBin;
+  const textClass = props.callToAction ? "call-to-action" : "";
 
   return (
     <div className={"bin-notification"}>
       <BinIcon binKey={name as keyof BinLookup} />
       <div className={"bin-notification__text"}>
         <h1>
-          <span className={"call-to-action"}>{CapitaliseFirst(name)}</span> is
-          next due on{" "}
-          <span className={"call-to-action"}>
+          <span className={textClass}>{CapitaliseFirst(name)}</span> is next due
+          on{" "}
+          <span className={textClass}>
             {moment(bin.next).format("dddd, MMMM Do YYYY")}
           </span>
           .
@@ -76,10 +77,18 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
       }
     });
 
+  const lastBin = orderedBins[orderedBins.length - 1];
+
   return (
     <React.Fragment>
       {orderedBins.map((b, index) => {
-        return <BinNotification key={index} namedBin={b} />;
+        return (
+          <BinNotification
+            key={index}
+            namedBin={b}
+            callToAction={b?.name !== lastBin?.name}
+          />
+        );
       })}
       <ReactJson src={binLookup} name={"spoopy-doopy-json"} theme={"colors"} />
     </React.Fragment>

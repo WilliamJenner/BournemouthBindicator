@@ -22,15 +22,25 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1em;
+  margin: 1em 0em 1em 0em;
 }
 
 .bin-notification__text {
-  font-size: 22.5px;
+  padding-left: 1em;
 }
 
 .bin-notification__text .call-to-action {
   color: #53327d;
+}
+
+.bin-icon {
+  margin: 1em 0em 0em 0em;
+}
+
+.bin-icon svg {
+  width: 5em;
+  height: 5em;
+  color: #999999;
 }
 
 /* react json view overrides */
@@ -44,12 +54,6 @@ body {
   font-weight: bold;
 }
 
-.bin-icon {
-}
-
-.bin-icon svg {
-  margin: 1em;
-  width: 5em;
-  height: 5em;
-  color: #999999;
+.variable-value {
+  color: #53327d !important;
 }

@@ -8,14 +8,15 @@ import { useInterval } from "../hooks/useInterval";
 import { hoursToMilliseconds } from "../utils/number";
 var BinNotification = function (props) {
     var _a = props.namedBin, bin = _a.bin, name = _a.name;
+    var textClass = props.callToAction ? "call-to-action" : "";
     return (React.createElement("div", { className: "bin-notification" },
         React.createElement(BinIcon, { binKey: name }),
         React.createElement("div", { className: "bin-notification__text" },
             React.createElement("h1", null,
-                React.createElement("span", { className: "call-to-action" }, CapitaliseFirst(name)),
+                React.createElement("span", { className: textClass }, CapitaliseFirst(name)),
                 " is next due on",
                 " ",
-                React.createElement("span", { className: "call-to-action" }, moment(bin.next).format("dddd, MMMM Do YYYY")),
+                React.createElement("span", { className: textClass }, moment(bin.next).format("dddd, MMMM Do YYYY")),
                 "."))));
 };
 export var Bindicator = function (props) {
@@ -55,9 +56,10 @@ export var Bindicator = function (props) {
             return 1;
         }
     });
+    var lastBin = orderedBins[orderedBins.length - 1];
     return (React.createElement(React.Fragment, null,
         orderedBins.map(function (b, index) {
-            return React.createElement(BinNotification, { key: index, namedBin: b });
+            return (React.createElement(BinNotification, { key: index, namedBin: b, callToAction: (b === null || b === void 0 ? void 0 : b.name) !== (lastBin === null || lastBin === void 0 ? void 0 : lastBin.name) }));
         }),
         React.createElement(ReactJson, { src: binLookup, name: "spoopy-doopy-json", theme: "colors" })));
 };
