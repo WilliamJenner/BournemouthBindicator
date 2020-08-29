@@ -28,8 +28,7 @@ In this secrets.json file, add this structure
 }
 ```
 
-You'll have to find the UPRN (unique property reference number) for your address. I did this by looking at the network request in dev tools.
-
+You'll have to find the UPRN (unique property reference number) for your address. I did this by using [BCP councils bin collection lookup](https://online.bcpcouncil.gov.uk/services/bindaylookup/), and watching the network in request in dev tools after searching my address.
 After this, just run the solution using IIS Express and you should be good to go!
 
 The source for Bindicator is located in **./ClientApp/src**. Within this directory you'll find a ts and js folder, the ts folder is compiled into the js folder, and App.js hooks into the js folder. As long as Home.tsx remains the root this won't need a major restructure. 
