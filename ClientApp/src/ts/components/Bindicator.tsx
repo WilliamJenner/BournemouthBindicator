@@ -41,18 +41,20 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
 ) => {
   const [binLookup, setBinLookup] = React.useState<BinLookup>();
 
-  // Lookup bins on startup
-  useEffect(() => {
+  const getAndSetLookup = () => {
     GetBins().then((result) => {
       setBinLookup(result);
     });
+  };
+
+  // Lookup bins on startup
+  useEffect(() => {
+    getAndSetLookup();
   }, []);
 
   // Then poll every X time
   useInterval(() => {
-    GetBins().then((result) => {
-      setBinLookup(result);
-    });
+    getAndSetLookup();
   }, hoursToMilliseconds(1));
 
   if (binLookup === undefined) {

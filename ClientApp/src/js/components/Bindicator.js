@@ -21,17 +21,18 @@ var BinNotification = function (props) {
 };
 export var Bindicator = function (props) {
     var _a = React.useState(), binLookup = _a[0], setBinLookup = _a[1];
-    // Lookup bins on startup
-    useEffect(function () {
+    var getAndSetLookup = function () {
         GetBins().then(function (result) {
             setBinLookup(result);
         });
+    };
+    // Lookup bins on startup
+    useEffect(function () {
+        getAndSetLookup();
     }, []);
     // Then poll every X time
     useInterval(function () {
-        GetBins().then(function (result) {
-            setBinLookup(result);
-        });
+        getAndSetLookup();
     }, hoursToMilliseconds(1));
     if (binLookup === undefined) {
         return null;
