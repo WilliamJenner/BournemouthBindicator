@@ -15,7 +15,7 @@ component which displays an ordered list of which bins are due next, from Recyli
 
 The component has an interval which will call the api again after an hour delay.
 
-This app also displays the returned data as JSON underneat, using [react-json-view](https://www.npmjs.com/package/react-json-view)
+This app also displays the returned data as JSON underneat, using [react-json-view](https://www.npmjs.com/package/react-json-view).
 
 # Development
 
