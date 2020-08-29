@@ -14,6 +14,8 @@ This web app contains a
 
 component which displays an ordered list of which bins are due next, from Recyling, Food Waste and Rubbish. This component fetchs a bin lookup from the bindicator controller in this webapp, which calls BCP councils API using RestSharp.
 
+The component has an interval which will call the api again after an hour delay.
+
 # Development
 
 After cloning the repo, you'll have to setup the secrets file. In Visual Studio 2019, right click the solution and select "Manage User Secrets". This should either setup secret manager or open a secrets.json file.
