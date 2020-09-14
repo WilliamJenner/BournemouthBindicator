@@ -1,4 +1,4 @@
 import { api } from "./http";
-export var GetBins = function () {
+export const GetBins = () => {
     return api("https://localhost:44379/bindicator");
 };
