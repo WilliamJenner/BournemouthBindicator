@@ -4,7 +4,7 @@ import moment from "moment";
 import { GetBins } from "../actions/bins";
 import { BinLookup, NamedBin } from "../types/BinTypes";
 import { BinIcon } from "./BinIcon";
-import { CapitaliseFirst } from "../utils/string";
+import { CapitaliseFirst, GetDisplayName } from "../utils/string";
 import { useInterval } from "../hooks/useInterval";
 import { hoursToMilliseconds } from "../utils/number";
 
@@ -24,7 +24,7 @@ const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
       <BinIcon binKey={name as keyof BinLookup} />
       <div className={"bin-notification__text"}>
         <h1>
-          <span className={textClass}>{CapitaliseFirst(name)}</span> is next due
+          <span className={textClass}>{GetDisplayName(name as keyof BinLookup)}</span> is next due
           on{" "}
           <span className={textClass}>
             {moment(bin.next).format("dddd, MMMM Do YYYY")}
@@ -73,10 +73,11 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
         return -1;
       } else if (a.bin.next === b.bin.next) {
         return 0;
-      } else a.bin.next > b.bin.next;
+      } else if(a.bin.next > b.bin.next)
       {
         return 1;
       }
+      else return 1;
     });
 
   const lastBin = orderedBins[orderedBins.length - 1];

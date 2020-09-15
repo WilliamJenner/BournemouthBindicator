@@ -1,6 +1,7 @@
 ﻿using BournemouthBindicator.Models;
 using Microsoft.Extensions.Options;
 using RestSharp;
+using System;
 using System.Threading.Tasks;
 
 namespace BournemouthBindicator.ServiceAgents
@@ -18,7 +19,15 @@ namespace BournemouthBindicator.ServiceAgents
         {
             var request = new RestRequest(Method.GET)
                 .AddParameter(nameof(uprn), uprn);
-            return _lookupClient.GetAsync<BinLookupDto>(request);
+            return Retry.Do(() => GetBinData(request), TimeSpan.FromSeconds(1));
+        }
+
+        private async Task<BinLookupDto> GetBinData(IRestRequest request)
+        {
+            var result = await _lookupClient.GetAsync<BinLookupDto>(request);
+            if (result == null)
+                throw new NullReferenceException();
+            return result;
         }
     }
 }

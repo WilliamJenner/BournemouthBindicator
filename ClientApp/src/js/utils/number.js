@@ -1,4 +1,4 @@
-export var hoursToMilliseconds = function (hour) {
-    var milliSecondsInHour = 3600000;
+export const hoursToMilliseconds = (hour) => {
+    const milliSecondsInHour = 3600000;
     return hour * milliSecondsInHour;
 };
