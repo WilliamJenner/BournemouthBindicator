@@ -22,6 +22,7 @@ This app also displays the returned data as JSON underneat, using [react-json-vi
 After cloning the repo, you'll have to setup the secrets file. In Visual Studio 2019, right click the solution and select "Manage User Secrets". This should either setup secret manager or open a secrets.json file.
 In this secrets.json file, add this structure
 ```json
+{
   "Lookup": {
     "Uprn": "YOURUPRNHERE"
   }
